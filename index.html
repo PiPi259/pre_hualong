@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>異空間勘查</title>
+    <title>前傳 V2.1 - V54.html</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-touch-callout: none; }
         body {
@@ -350,7 +350,7 @@
                 <div class="nav-down-btn" onclick="returnFromBaseboard()">&or;</div>
             </div>
 
-            <!-- 道具大圖檢視 (尺寸放大 1.5 倍至 750x630px，道具列內維持原尺寸不動) -->
+            <!-- 道具大圖檢視 (放大 1.5 倍至 750x630px，道具列內不動) -->
             <div id="modal-item-detail" class="modal" onclick="closeModal('modal-item-detail')">
                 <div style="position:relative; width:750px; height:630px; display:flex; justify-content:center; align-items:center; cursor:pointer;" onclick="event.stopPropagation(); showItemDescription();">
                     <img id="detail-item-img" style="max-width:95%; max-height:95%; object-fit:contain;" alt="">
@@ -364,7 +364,7 @@
             <div id="modal-tile-board" onclick="closeTileBoardModal()">
                 <div id="tile-board-wrapper" style="position:relative; width:700px; height:500px; display:flex; justify-content:center; align-items:center;" onclick="event.stopPropagation()">
                     <img src="images/item_d_ghostleg.png" style="max-width:90%; max-height:90%; object-fit:contain;" alt="◆圖板">
-                    <div id="tile-board-placed-layer" class="manipulate-layer" style="display:none; width:317.6px; top:133px; left:191px;" onpointerdown="startTriangleInteraction(event)">
+                    <div id="tile-board-placed-layer" class="manipulate-layer" style="display:none; width:317.6px; top:133px; left:191px;" onpointerdown="startTileInteraction(event)">
                         <img id="placed-tile-img" src="" style="width:100%; height:auto; object-fit:contain; pointer-events:none;" alt="">
                     </div>
                 </div>
@@ -754,7 +754,7 @@
         const distanceFromCenter = Math.sqrt(distX * distX + distY * distY);
         const radius = rect.width / 2;
 
-        if (distanceFromCenter > radius * 0.6) {
+        if (distanceFromCenter > radius * 0.4) {
             boardInteractionMode = 'rotate';
             boardStartMouseAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
             boardInitialAngle = boardTileRotation;
@@ -943,7 +943,7 @@
     function onTriangleMouseUp() {
         baseboardInteractionMode = null;
         document.removeEventListener('pointermove', onTriangleMouseMove);
-        document.removeEventListener('mouseup', onTriangleMouseUp);
+        document.removeEventListener('pointerup', onTriangleMouseUp);
     }
 
     function updateBaseboardTransform() {
