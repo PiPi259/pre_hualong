@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>前傳 V2.1 - V50.html</title>
+    <title>前傳 V2.1 - V51.html</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-touch-callout: none; }
         body {
@@ -335,7 +335,7 @@
             </div>
 
             <!-- 西牆近景 (bg_west_basket.png) -->
-            <div class="wall" id="wall-basket" style="background-image: url('images/bg_west_basket.png');" onpointerup="dropIntoBasket(event)">
+            <div class="wall" id="wall-basket" style="background-image: url('images/bg_west_basket.png');">
                 <div id="basket-click-area" style="position:absolute; top:330px; left:660px; width:360px; height:280px; cursor:pointer; display:flex; justify-content:center; align-items:center;" onclick="handleBasketClick()">
                     <img id="basket-center-fruit" src="" style="max-width:70%; max-height:70%; object-fit:contain; display:none;" alt="">
                 </div>
@@ -343,7 +343,7 @@
             </div>
 
             <!-- ▲海報近景背景視角 (bg_east_baseboard.png) -->
-            <div class="wall" id="wall-baseboard" style="background-image: url('images/bg_east_baseboard.png');" onpointerup="dropIntoBaseboard(event)">
+            <div class="wall" id="wall-baseboard" style="background-image: url('images/bg_east_baseboard.png');">
                 <div id="baseboard-overlay-layer" class="manipulate-layer" style="display:none; width:560px; top:200px; left:560px;" onpointerdown="startTriangleInteraction(event)">
                     <img id="baseboard-overlay-img" src="images/item_t_overlay.png" style="width:100%; pointer-events:none;" alt="">
                 </div>
@@ -361,8 +361,8 @@
             </div>
 
             <!-- ◆圖板解謎模式 Modal -->
-            <div id="modal-tile-board" onclick="closeTileBoardModal()" onpointerup="dropIntoTileBoard(event)">
-                <div style="position:relative; width:700px; height:500px; display:flex; justify-content:center; align-items:center;" onclick="event.stopPropagation()">
+            <div id="modal-tile-board" onclick="closeTileBoardModal()">
+                <div id="tile-board-wrapper" style="position:relative; width:700px; height:500px; display:flex; justify-content:center; align-items:center;" onclick="event.stopPropagation()">
                     <img src="images/item_d_ghostleg.png" style="max-width:90%; max-height:90%; object-fit:contain;" alt="◆圖板">
                     <div id="tile-board-placed-layer" class="manipulate-layer" style="display:none; width:317.6px; top:133px; left:191px;" onpointerdown="startTileInteraction(event)">
                         <img id="placed-tile-img" src="" style="width:100%; height:auto; object-fit:contain; pointer-events:none;" alt="">
@@ -655,19 +655,34 @@
         isDragging = false;
         document.getElementById('custom-drag-ghost').style.display = 'none';
 
-        // 建立一個合成事件物件，支援手機端 pointerup 抓不到 clientX/clientY 的問題
-        let syntheticEvent = {
-            clientX: e.clientX !== undefined && e.clientX !== 0 ? e.clientX : lastClientX,
-            clientY: e.clientY !== undefined && e.clientY !== 0 ? e.clientY : lastClientY
-        };
+        // 取得有效坐標（防止手機端 pointerup 坐標歸零）
+        let x = e.clientX !== undefined && e.clientX !== 0 ? e.clientX : lastClientX;
+        let y = e.clientY !== undefined && e.clientY !== 0 ? e.clientY : lastClientY;
+
+        let syntheticEvent = { clientX: x, clientY: y };
 
         if (currentWall === 'basket') {
-            dropIntoBasket(syntheticEvent);
+            checkHitAndDrop(syntheticEvent, document.getElementById('wall-basket'), () => dropIntoBasket(syntheticEvent));
         } else if (currentWall === 'baseboard') {
-            dropIntoBaseboard(syntheticEvent);
+            checkHitAndDrop(syntheticEvent, document.getElementById('wall-baseboard'), () => dropIntoBaseboard(syntheticEvent));
+        } else {
+            // 檢查是否拖曳放上 ◆圖板
+            let tileBoardModal = document.getElementById('modal-tile-board');
+            if (tileBoardModal.style.display === 'flex') {
+                checkHitAndDrop(syntheticEvent, document.getElementById('tile-board-wrapper'), () => dropIntoTileBoard(syntheticEvent));
+            }
         }
 
         draggingSlotIndex = -1;
+    }
+
+    // 透過 getBoundingClientRect 進行精準矩形碰撞檢測（完美克服手機觸控目標誤判）
+    function checkHitAndDrop(e, targetElement, successCallback) {
+        if (!targetElement) return;
+        const rect = targetElement.getBoundingClientRect();
+        if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            successCallback();
+        }
     }
 
     function dropIntoBasket(e) {
