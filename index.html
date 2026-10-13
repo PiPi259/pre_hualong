@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>前傳 V2.1 - V51.html</title>
+    <title>異空間勘查</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-touch-callout: none; }
         body {
@@ -39,7 +39,7 @@
             color: #d4a017;
             border: 2px solid rgba(212, 160, 23, 0.5);
             padding: 6px 14px;
-            font-size: 16px;
+            font-size: 18px;
             font-family: 'Courier New', Courier, monospace;
             cursor: pointer;
             border-radius: 6px;
@@ -232,7 +232,7 @@
 </head>
 <body onpointermove="onCustomDragMove(event)" onpointerup="onCustomDragEnd(event)">
 
-<button id="fullscreen-btn" onclick="toggleFullscreen()">全螢幕</button>
+<button id="fullscreen-btn" onclick="toggleFullscreen()">⛶</button>
 <div id="custom-drag-ghost"><img id="ghost-img" src="" alt=""></div>
 
 <div id="game-viewport">
@@ -243,8 +243,8 @@
 
             <div id="game-subtitle">過不去……</div>
 
-            <!-- 北牆 (bg_north.png) -->
-            <div class="wall active" id="wall-0" style="background-image: url('images/bg_north.png');">
+            <!-- 北牆 (bg_north.jpg) -->
+            <div class="wall active" id="wall-0" style="background-image: url('images/bg_north.jpg');">
                 <!-- ① 皮箱熱點 -->
                 <div class="hotspot" style="top: 500px; left: 700px; width: 260px; height: 80px;" onclick="enterSafeView()"></div>
                 <!-- ② 解碼表熱點 -->
@@ -255,8 +255,8 @@
                 </div>
             </div>
 
-            <!-- 北牆皮箱密碼鎖放大視角 (bg_north_box.png) -->
-            <div class="wall" id="wall-safe-view" style="background-image: url('images/bg_north_box.png');">
+            <!-- 北牆皮箱密碼鎖放大視角 (bg_north_box.jpg) -->
+            <div class="wall" id="wall-safe-view" style="background-image: url('images/bg_north_box.jpg');">
                 <!-- 密碼鎖點擊熱點 -->
                 <div id="safe-hotspot" class="hotspot" style="top: 520px; left: 700px; width: 280px; height: 120px;" onclick="toggleSafeInputBox()"></div>
                 
@@ -269,13 +269,13 @@
                 <div class="nav-down-btn" onclick="returnFromSafeView()">&or;</div>
             </div>
 
-            <!-- 解碼表特寫大圖背景 (bg_north_chart.png) -->
-            <div class="wall" id="wall-chart-view" style="background-image: url('images/bg_north_chart.png');">
+            <!-- 解碼表特寫大圖背景 (bg_north_chart.jpg) -->
+            <div class="wall" id="wall-chart-view" style="background-image: url('images/bg_north_chart.jpg');">
                 <div class="nav-down-btn" onclick="returnFromChartView()">&or;</div>
             </div>
 
-            <!-- 東牆 (bg_east.png) -->
-            <div class="wall" id="wall-1" style="background-image: url('images/bg_east.png');">
+            <!-- 東牆 (bg_east.jpg) -->
+            <div class="wall" id="wall-1" style="background-image: url('images/bg_east.jpg');">
                 <div class="hotspot" style="bottom:95px; right:155px; width:300px; height:260px;" onclick="enterDrawerView()"></div>
                 <div id="hp-orange" class="hotspot" style="bottom:365px; right:260px; width:80px;" onclick="pickUp('orange', 'images/item_c_orange.png', 'hp-orange', '軌道邊的哦潤吉？')">
                     <img src="images/item_c_orange.png" alt="">
@@ -283,48 +283,48 @@
                 <div class="hotspot" style="top:354px; left:390px; width:176px; height:126px;" onclick="enterBaseboardView()"></div>
             </div>
 
-            <!-- 東面櫃子近景背景視角 (bg_east_drawer.png) -->
-            <div class="wall" id="wall-drawer-view" style="background-image: url('images/bg_east_drawer.png');">
+            <!-- 東面櫃子近景背景視角 (bg_east_drawer.jpg) -->
+            <div class="wall" id="wall-drawer-view" style="background-image: url('images/bg_east_drawer.jpg');">
                 <div class="hotspot" style="top: 325px; left: 370px; width: 940px; height: 140px;" onclick="openDrawerLayer(1)"></div>
                 <div class="hotspot" style="top: 475px; left: 370px; width: 940px; height: 140px;" onclick="openDrawerLayer(2)"></div>
                 <div class="hotspot" style="top: 625px; left: 370px; width: 940px; height: 140px;" onclick="openDrawerLayer(3)"></div>
                 <div class="nav-down-btn" onclick="returnFromDrawerView()">&or;</div>
             </div>
 
-            <!-- 上層抽屜拉開近景背景 (bg_east_drawer_1.png) -->
-            <div class="wall" id="wall-drawer-1-open" style="background-image: url('images/bg_east_drawer_1.png');">
+            <!-- 上層抽屜拉開近景背景 (bg_east_drawer_1.jpg) -->
+            <div class="wall" id="wall-drawer-1-open" style="background-image: url('images/bg_east_drawer_1.jpg');">
                 <div id="drawer-item-overlay" class="hotspot" style="top:440px; left:750px; width:120px;" onclick="pickUpDrawerItem('overlay', 'images/item_t_overlay.png', 'drawer-item-overlay', '這是三角？')">
                     <img src="images/item_t_overlay.png" alt="">
                 </div>
                 <div class="hotspot" style="top: 325px; left: 370px; width: 940px; height: 140px;" onclick="enterDrawerView()"></div>
             </div>
 
-            <!-- 中層抽屜拉開近景背景 (bg_east_drawer_2.png) -->
-            <div class="wall" id="wall-drawer-2-open" style="background-image: url('images/bg_east_drawer_2.png');">
+            <!-- 中層抽屜拉開近景背景 (bg_east_drawer_2.jpg) -->
+            <div class="wall" id="wall-drawer-2-open" style="background-image: url('images/bg_east_drawer_2.jpg');">
                 <div id="drawer-item-tile-wrong" class="hotspot" style="top:430px; left:740px; width:130px;" onclick="pickUpDrawerItem('tile_wrong', 'images/item_d_wrong.png', 'drawer-item-tile-wrong', '好像可以跟什麼拚在一起')">
                     <img src="images/item_d_wrong.png" alt="">
                 </div>
                 <div class="hotspot" style="top: 475px; left: 370px; width: 940px; height: 140px;" onclick="enterDrawerView()"></div>
             </div>
 
-            <!-- 下層抽屜拉開近景背景 (bg_east_drawer_3.png) -->
-            <div class="wall" id="wall-drawer-3-open" style="background-image: url('images/bg_east_drawer_3.png');">
+            <!-- 下層抽屜拉開近景背景 (bg_east_drawer_3.jpg) -->
+            <div class="wall" id="wall-drawer-3-open" style="background-image: url('images/bg_east_drawer_3.jpg');">
                 <div id="drawer-item-lemon" class="hotspot" style="top:430px; left:740px; width:130px;" onclick="pickUpDrawerItem('lemon', 'images/item_c_lemon.png', 'drawer-item-lemon', '那一天的憂鬱，憂鬱起來')">
                     <img src="images/item_c_lemon.png" alt="">
                 </div>
                 <div class="hotspot" style="top: 625px; left: 370px; width: 940px; height: 140px;" onclick="enterDrawerView()"></div>
             </div>
 
-            <!-- 南牆 (bg_south.png) -->
-            <div class="wall" id="wall-2" style="background-image: url('images/bg_south.png');">
+            <!-- 南牆 (bg_south.jpg) -->
+            <div class="wall" id="wall-2" style="background-image: url('images/bg_south.jpg');">
                 <div class="hotspot" style="top:220px; left:590px; width:500px; height:500px;" onclick="showSubtitle('過不去……')"></div>
                 <div id="hp-peach" class="hotspot" style="bottom:120px; left:730px; width:100px;" onclick="pickUp('peach', 'images/item_c_peach.png', 'hp-peach', '一顆水蜜桃')">
                     <img src="images/item_c_peach.png" alt="">
                 </div>
             </div>
 
-            <!-- 西牆 (bg_west.png) -->
-            <div class="wall" id="wall-3" style="background-image: url('images/bg_west.png');">
+            <!-- 西牆 (bg_west.jpg) -->
+            <div class="wall" id="wall-3" style="background-image: url('images/bg_west.jpg');">
                 <div class="hotspot" style="top:430px; left:480px; width:300px; height:120px;" onclick="enterBasketView()"></div>
                 <div id="hp-apple" class="hotspot" style="bottom:130px; left:540px; width:80px;" onclick="pickUp('apple', 'images/item_c_apple.png', 'hp-apple', '不是bad apple')">
                     <img src="images/item_c_apple.png" alt="">
@@ -334,26 +334,26 @@
                 </div>
             </div>
 
-            <!-- 西牆近景 (bg_west_basket.png) -->
-            <div class="wall" id="wall-basket" style="background-image: url('images/bg_west_basket.png');">
+            <!-- 西牆近景 (bg_west_basket.jpg) -->
+            <div class="wall" id="wall-basket" style="background-image: url('images/bg_west_basket.jpg');">
                 <div id="basket-click-area" style="position:absolute; top:330px; left:660px; width:360px; height:280px; cursor:pointer; display:flex; justify-content:center; align-items:center;" onclick="handleBasketClick()">
                     <img id="basket-center-fruit" src="" style="max-width:70%; max-height:70%; object-fit:contain; display:none;" alt="">
                 </div>
                 <div class="nav-down-btn" onclick="returnFromBasket()">&or;</div>
             </div>
 
-            <!-- ▲海報近景背景視角 (bg_east_baseboard.png) -->
-            <div class="wall" id="wall-baseboard" style="background-image: url('images/bg_east_baseboard.png');">
+            <!-- ▲海報近景背景視角 (bg_east_baseboard.jpg) -->
+            <div class="wall" id="wall-baseboard" style="background-image: url('images/bg_east_baseboard.jpg');">
                 <div id="baseboard-overlay-layer" class="manipulate-layer" style="display:none; width:560px; top:200px; left:560px;" onpointerdown="startTriangleInteraction(event)">
                     <img id="baseboard-overlay-img" src="images/item_t_overlay.png" style="width:100%; pointer-events:none;" alt="">
                 </div>
                 <div class="nav-down-btn" onclick="returnFromBaseboard()">&or;</div>
             </div>
 
-            <!-- 道具大圖檢視 (按鈕為「翻面」) -->
+            <!-- 道具大圖檢視 (尺寸放大 1.5 倍至 750x630px，道具列內維持原尺寸不動) -->
             <div id="modal-item-detail" class="modal" onclick="closeModal('modal-item-detail')">
-                <div style="position:relative; width:500px; height:420px; display:flex; justify-content:center; align-items:center; cursor:pointer;" onclick="event.stopPropagation(); showItemDescription();">
-                    <img id="detail-item-img" style="max-width:90%; max-height:90%; object-fit:contain;" alt="">
+                <div style="position:relative; width:750px; height:630px; display:flex; justify-content:center; align-items:center; cursor:pointer;" onclick="event.stopPropagation(); showItemDescription();">
+                    <img id="detail-item-img" style="max-width:95%; max-height:95%; object-fit:contain;" alt="">
                 </div>
                 <div id="detail-ctrl-panel" style="margin-top: 15px; display: none; z-index: 105;" onclick="event.stopPropagation()">
                     <button onclick="flipInspectedTile()" style="padding: 10px 24px; font-size: 18px; background: #2a2a38; color: #fff; border: 1px solid #777; border-radius: 6px; cursor: pointer;">翻面</button>
@@ -364,7 +364,7 @@
             <div id="modal-tile-board" onclick="closeTileBoardModal()">
                 <div id="tile-board-wrapper" style="position:relative; width:700px; height:500px; display:flex; justify-content:center; align-items:center;" onclick="event.stopPropagation()">
                     <img src="images/item_d_ghostleg.png" style="max-width:90%; max-height:90%; object-fit:contain;" alt="◆圖板">
-                    <div id="tile-board-placed-layer" class="manipulate-layer" style="display:none; width:317.6px; top:133px; left:191px;" onpointerdown="startTileInteraction(event)">
+                    <div id="tile-board-placed-layer" class="manipulate-layer" style="display:none; width:317.6px; top:133px; left:191px;" onpointerdown="startTriangleInteraction(event)">
                         <img id="placed-tile-img" src="" style="width:100%; height:auto; object-fit:contain; pointer-events:none;" alt="">
                     </div>
                 </div>
@@ -380,10 +380,10 @@
 
 <script>
     const preloadImages = [
-        'images/bg_north.png', 'images/bg_north_box.png', 'images/bg_north_chart.png',
-        'images/bg_east.png', 'images/bg_east_baseboard.png', 'images/bg_east_drawer.png',
-        'images/bg_east_drawer_1.png', 'images/bg_east_drawer_2.png', 'images/bg_east_drawer_3.png',
-        'images/bg_south.png', 'images/bg_west.png', 'images/bg_west_basket.png',
+        'images/bg_north.jpg', 'images/bg_north_box.jpg', 'images/bg_north_chart.jpg',
+        'images/bg_east.jpg', 'images/bg_east_baseboard.jpg', 'images/bg_east_drawer.jpg',
+        'images/bg_east_drawer_1.jpg', 'images/bg_east_drawer_2.jpg', 'images/bg_east_drawer_3.jpg',
+        'images/bg_south.jpg', 'images/bg_west.jpg', 'images/bg_west_basket.jpg',
         'images/item_s_rulebook.png', 'images/item_c_apple.png', 'images/item_c_strawberry.png',
         'images/item_c_lemon.png', 'images/item_c_peach.png', 'images/item_c_orange.png',
         'images/item_t_overlay.png', 'images/item_d_ghostleg.png', 'images/item_d_correct.png',
@@ -655,7 +655,6 @@
         isDragging = false;
         document.getElementById('custom-drag-ghost').style.display = 'none';
 
-        // 取得有效坐標（防止手機端 pointerup 坐標歸零）
         let x = e.clientX !== undefined && e.clientX !== 0 ? e.clientX : lastClientX;
         let y = e.clientY !== undefined && e.clientY !== 0 ? e.clientY : lastClientY;
 
@@ -666,7 +665,6 @@
         } else if (currentWall === 'baseboard') {
             checkHitAndDrop(syntheticEvent, document.getElementById('wall-baseboard'), () => dropIntoBaseboard(syntheticEvent));
         } else {
-            // 檢查是否拖曳放上 ◆圖板
             let tileBoardModal = document.getElementById('modal-tile-board');
             if (tileBoardModal.style.display === 'flex') {
                 checkHitAndDrop(syntheticEvent, document.getElementById('tile-board-wrapper'), () => dropIntoTileBoard(syntheticEvent));
@@ -676,7 +674,6 @@
         draggingSlotIndex = -1;
     }
 
-    // 透過 getBoundingClientRect 進行精準矩形碰撞檢測（完美克服手機觸控目標誤判）
     function checkHitAndDrop(e, targetElement, successCallback) {
         if (!targetElement) return;
         const rect = targetElement.getBoundingClientRect();
@@ -946,7 +943,7 @@
     function onTriangleMouseUp() {
         baseboardInteractionMode = null;
         document.removeEventListener('pointermove', onTriangleMouseMove);
-        document.removeEventListener('pointerup', onTriangleMouseUp);
+        document.removeEventListener('mouseup', onTriangleMouseUp);
     }
 
     function updateBaseboardTransform() {
