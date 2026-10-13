@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>前傳 V2.1 - V49.html</title>
+    <title>前傳 V2.1 - V50.html</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-touch-callout: none; }
         body {
@@ -624,11 +624,15 @@
 
     let draggingSlotIndex = -1;
     let isDragging = false;
+    let lastClientX = 0;
+    let lastClientY = 0;
 
     function startCustomDrag(e, index) {
         if (!inventory[index]) return;
         draggingSlotIndex = index;
         isDragging = true;
+        lastClientX = e.clientX;
+        lastClientY = e.clientY;
         const ghost = document.getElementById('custom-drag-ghost');
         document.getElementById('ghost-img').src = inventory[index].img;
         ghost.style.display = 'block';
@@ -639,6 +643,8 @@
 
     function onCustomDragMove(e) {
         if (!isDragging) return;
+        lastClientX = e.clientX;
+        lastClientY = e.clientY;
         const ghost = document.getElementById('custom-drag-ghost');
         ghost.style.left = e.clientX + 'px';
         ghost.style.top = e.clientY + 'px';
@@ -648,6 +654,19 @@
         if (!isDragging) return;
         isDragging = false;
         document.getElementById('custom-drag-ghost').style.display = 'none';
+
+        // 建立一個合成事件物件，支援手機端 pointerup 抓不到 clientX/clientY 的問題
+        let syntheticEvent = {
+            clientX: e.clientX !== undefined && e.clientX !== 0 ? e.clientX : lastClientX,
+            clientY: e.clientY !== undefined && e.clientY !== 0 ? e.clientY : lastClientY
+        };
+
+        if (currentWall === 'basket') {
+            dropIntoBasket(syntheticEvent);
+        } else if (currentWall === 'baseboard') {
+            dropIntoBaseboard(syntheticEvent);
+        }
+
         draggingSlotIndex = -1;
     }
 
