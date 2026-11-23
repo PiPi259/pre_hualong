@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>前傳</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<button id="fullscreen-btn">⛶</button>
+<div id="custom-drag-ghost"><img id="ghost-img" src="" alt=""></div>
+
+<div id="game-viewport">
+  <div id="game-container"><div id="stage">
+    <div id="walls"></div>
+    <div id="nav-left" class="nav-btn">&lt;</div>
+    <div id="nav-right" class="nav-btn">&gt;</div>
+    <div id="game-subtitle"></div>
+
+    <div id="modal-item-detail" class="modal">
+      <div id="detail-box"><img id="detail-item-img" alt=""></div>
+      <div id="detail-ctrl-panel"><button id="flip-btn">翻面</button></div>
+    </div>
+
+    <div id="modal-tile-board" class="modal">
+      <div id="tile-board-wrapper">
+        <img id="board-img" alt="◆圖板">
+        <div id="tile-board-placed-layer" class="manipulate-layer"><img id="placed-tile-img" alt=""></div>
+      </div>
+    </div>
+
+    <!-- 開場 / 結尾畫面（內容在 data.js 的 intro / ending 設定） -->
+    <div id="screen"></div>
+  </div></div>
+  <div id="inventory-container"><div id="inventory"></div></div>
+</div>
+
+<script src="data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
